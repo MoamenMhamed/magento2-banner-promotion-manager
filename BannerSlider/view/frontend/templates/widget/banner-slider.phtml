@@ -1,0 +1,53 @@
+<?php
+/** @var \MagentoVlogs\BannerSlider\Block\Widget\BannerSlider $block */
+
+$position = $block->getData('position') ?: 'homepage_hero';
+$banners  = $block->getBannersByPosition($position);
+
+if (!$banners->getSize()) {
+    return;
+}
+?>
+
+<div class="banner-slider-wrapper" data-position="<?= $block->escapeHtml($position) ?>">
+    <?php foreach ($banners as $banner): ?>
+        <div class="banner-item"
+             style="background-color: <?= $block->escapeHtml($banner->getBackgroundColor() ?: '#ffffff') ?>">
+
+            <?php if ($banner->getUrl()): ?>
+                <a href="<?= $block->escapeUrl($banner->getUrl()) ?>">
+            <?php endif; ?>
+
+                <img
+                    src="<?= $block->escapeUrl($block->getImageUrl($banner->getImage())) ?>"
+                    alt="<?= $block->escapeHtml($banner->getTitle() ?: $banner->getName()) ?>"
+                    class="banner-image"
+                />
+
+                <?php if ($banner->getTitle()): ?>
+                    <h2 class="banner-title"
+                        style="color: <?= $block->escapeHtml($banner->getTextColor() ?: '#000000') ?>">
+                        <?= $block->escapeHtml($banner->getTitle()) ?>
+                    </h2>
+                <?php endif; ?>
+
+                <?php if ($banner->getDescription()): ?>
+                    <p class="banner-description"
+                       style="color: <?= $block->escapeHtml($banner->getTextColor() ?: '#000000') ?>">
+                        <?= $block->escapeHtml($banner->getDescription()) ?>
+                    </p>
+                <?php endif; ?>
+
+                <?php if ($banner->getLinkText()): ?>
+                    <button class="banner-btn">
+                        <?= $block->escapeHtml($banner->getLinkText()) ?>
+                    </button>
+                <?php endif; ?>
+
+            <?php if ($banner->getUrl()): ?>
+                </a>
+            <?php endif; ?>
+
+        </div>
+    <?php endforeach; ?>
+</div>

@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Webapi:etc/webapi.xsd">
+
+    <!-- Get banners by position -->
+    <route url="/V1/bannerslider/banners/:position" method="GET">
+        <service class="MagentoVlogs\BannerSlider\Api\BannerRepositoryInterface"
+                 method="getByPosition"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+
+    <!-- Get all active banners -->
+    <route url="/V1/bannerslider/banners" method="GET">
+        <service class="MagentoVlogs\BannerSlider\Api\BannerRepositoryInterface"
+                 method="getActiveBanners"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+
+</routes>

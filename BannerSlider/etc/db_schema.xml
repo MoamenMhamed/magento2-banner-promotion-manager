@@ -1,0 +1,156 @@
+<?xml version="1.0"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    
+    <!-- TABLE 1: Banner Groups -->
+    <table name="magentovlogs_banners_slider_group" resource="default" engine="innodb" 
+           comment="Banner Groups Table">
+        <column xsi:type="smallint" name="id" unsigned="true" nullable="false" identity="true" 
+                comment="Group ID"/>
+        <column xsi:type="varchar" name="name" nullable="false" length="255" 
+                comment="Group Name"/>
+        <column xsi:type="varchar" name="code" nullable="false" length="100" 
+                comment="Group Code (homepage_hero, payment_partners, etc)"/>
+        <column xsi:type="varchar" name="layout_type" nullable="false" length="50" default="slider" 
+                comment="Layout Type (slider, grid, single)"/>
+        <column xsi:type="smallint" name="max_banners" unsigned="true" nullable="true" default="5" 
+                comment="Maximum number of banners to show"/>
+        <column xsi:type="boolean" name="auto_rotate" nullable="false" default="1" 
+                comment="Auto-rotate banners (1=yes, 0=no)"/>
+        <column xsi:type="int" name="rotation_speed" unsigned="true" nullable="true" default="5" 
+                comment="Rotation speed in seconds"/>
+        <column xsi:type="timestamp" name="creation_time" on_update="false" nullable="false" 
+                default="CURRENT_TIMESTAMP" comment="Creation Time"/>
+        <column xsi:type="timestamp" name="update_time" on_update="true" nullable="false" 
+                default="CURRENT_TIMESTAMP" comment="Update Time"/>
+        
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="id"/>
+        </constraint>
+        <constraint xsi:type="unique" referenceId="MAGENTOVLOGS_BANNERS_SLIDER_GROUP_CODE">
+            <column name="code"/>
+        </constraint>
+        
+        <index referenceId="MAGENTOVLOGS_BANNERS_SLIDER_GROUP_NAME" indexType="btree">
+            <column name="name"/>
+        </index>
+    </table>
+
+    <!-- TABLE 2: Banners -->
+    <table name="magentovlogs_banners_slider" resource="default" engine="innodb" 
+           comment="Banners Table">
+        <column xsi:type="int" name="id" unsigned="true" nullable="false" identity="true" 
+                comment="Banner ID"/>
+        <column xsi:type="varchar" name="name" nullable="false" length="255" 
+                comment="Banner Name (Internal)"/>
+        <column xsi:type="varchar" name="title" nullable="true" length="255" 
+                comment="Display Title"/>
+        <column xsi:type="text" name="description" nullable="true" 
+                comment="Banner Description/Subtitle"/>
+        <column xsi:type="varchar" name="image" nullable="false" length="255" 
+                comment="Desktop Image Path"/>
+        <column xsi:type="varchar" name="mobile_image" nullable="true" length="255" 
+                comment="Mobile Image Path"/>
+        <column xsi:type="varchar" name="url" nullable="true" length="255" 
+                comment="Link URL"/>
+        <column xsi:type="varchar" name="link_text" nullable="true" length="100" 
+                comment="Button Text (e.g., Register Now, Buy Now)"/>
+        <column xsi:type="varchar" name="background_color" nullable="true" length="20" 
+                comment="Background Color (hex code)"/>
+        <column xsi:type="varchar" name="text_color" nullable="true" length="20" 
+                comment="Text Color (hex code)"/>
+        <column xsi:type="varchar" name="position" nullable="false" length="100" 
+                comment="Display Position"/>
+        <column xsi:type="smallint" name="display_order" unsigned="true" nullable="true" default="0" 
+                comment="Sort Order"/>
+        <column xsi:type="smallint" name="status" unsigned="false" nullable="false" default="1" 
+                comment="Status (1=enabled, 0=disabled)"/>
+        <column xsi:type="smallint" name="store_id" unsigned="true" nullable="false" 
+                comment="Store View ID"/>
+        <column xsi:type="smallint" name="group_id" unsigned="true" nullable="false" 
+                comment="Group ID"/>
+        <column xsi:type="date" name="start_date" nullable="true" 
+                comment="Start Date"/>
+        <column xsi:type="date" name="end_date" nullable="true" 
+                comment="End Date"/>
+        <column xsi:type="int" name="click_count" unsigned="true" nullable="false" default="0" 
+                comment="Total Clicks"/>
+        <column xsi:type="int" name="impression_count" unsigned="true" nullable="false" default="0" 
+                comment="Total Impressions"/>
+        <column xsi:type="timestamp" name="creation_time" on_update="false" nullable="false" 
+                default="CURRENT_TIMESTAMP" comment="Creation Time"/>
+        <column xsi:type="timestamp" name="update_time" on_update="true" nullable="false" 
+                default="CURRENT_TIMESTAMP" comment="Update Time"/>
+        
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="id"/>
+        </constraint>
+        
+        <!-- Foreign Key to Store -->
+        <constraint xsi:type="foreign" referenceId="MAGENTOVLOGS_BANNERS_SLIDER_STORE_ID_STORE_STORE_ID" 
+                    table="magentovlogs_banners_slider" column="store_id" 
+                    referenceTable="store" referenceColumn="store_id" onDelete="CASCADE"/>
+        
+        <!-- Foreign Key to Group -->
+        <constraint xsi:type="foreign" referenceId="MAGENTOVLOGS_BANNERS_SLIDER_GROUP_ID_GROUP_ID" 
+                    table="magentovlogs_banners_slider" column="group_id" 
+                    referenceTable="magentovlogs_banners_slider_group" referenceColumn="id" 
+                    onDelete="CASCADE"/>
+        
+        <!-- Indexes for Performance -->
+        <index referenceId="MAGENTOVLOGS_BANNERS_SLIDER_NAME" indexType="fulltext">
+            <column name="name"/>
+        </index>
+        <index referenceId="MAGENTOVLOGS_BANNERS_SLIDER_STATUS" indexType="btree">
+            <column name="status"/>
+        </index>
+        <index referenceId="MAGENTOVLOGS_BANNERS_SLIDER_POSITION" indexType="btree">
+            <column name="position"/>
+        </index>
+        <index referenceId="MAGENTOVLOGS_BANNERS_SLIDER_DISPLAY_ORDER" indexType="btree">
+            <column name="display_order"/>
+        </index>
+    </table>
+
+    <!-- TABLE 3: Analytics -->
+    <table name="magentovlogs_banners_slider_analytics" resource="default" engine="innodb" 
+           comment="Banner Analytics/Tracking Table">
+        <column xsi:type="int" name="id" unsigned="true" nullable="false" identity="true" 
+                comment="Analytics ID"/>
+        <column xsi:type="int" name="banner_id" unsigned="true" nullable="false" 
+                comment="Banner ID"/>
+        <column xsi:type="varchar" name="event_type" nullable="false" length="50" 
+                comment="Event Type (click, impression, conversion)"/>
+        <column xsi:type="int" name="customer_id" unsigned="true" nullable="true" 
+                comment="Customer ID (NULL for guests)"/>
+        <column xsi:type="varchar" name="session_id" nullable="true" length="255" 
+                comment="Session ID for anonymous tracking"/>
+        <column xsi:type="varchar" name="user_agent" nullable="true" length="500" 
+                comment="User Agent String"/>
+        <column xsi:type="varchar" name="ip_address" nullable="true" length="45" 
+                comment="IP Address"/>
+        <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" 
+                default="CURRENT_TIMESTAMP" comment="Event Timestamp"/>
+        
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="id"/>
+        </constraint>
+        
+        <!-- Foreign Key to Banner -->
+        <constraint xsi:type="foreign" referenceId="MAGENTOVLOGS_BANNERS_ANALYTICS_BANNER_ID" 
+                    table="magentovlogs_banners_slider_analytics" column="banner_id" 
+                    referenceTable="magentovlogs_banners_slider" referenceColumn="id" 
+                    onDelete="CASCADE"/>
+        
+        <!-- Indexes -->
+        <index referenceId="MAGENTOVLOGS_BANNERS_ANALYTICS_BANNER_ID" indexType="btree">
+            <column name="banner_id"/>
+        </index>
+        <index referenceId="MAGENTOVLOGS_BANNERS_ANALYTICS_EVENT_TYPE" indexType="btree">
+            <column name="event_type"/>
+        </index>
+        <index referenceId="MAGENTOVLOGS_BANNERS_ANALYTICS_CREATED_AT" indexType="btree">
+            <column name="created_at"/>
+        </index>
+    </table>
+</schema>

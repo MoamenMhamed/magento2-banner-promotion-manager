@@ -1,0 +1,64 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="magentovlogs_banners_slider_banner_listing_data_source"
+                      xsi:type="string">
+                    MagentoVlogs\BannerSlider\Model\ResourceModel\Banner\Grid\Collection
+                </item>
+                <item name="magentovlogs_banners_slider_group_listing_data_source"
+                      xsi:type="string">
+                    MagentoVlogs\BannerSlider\Model\ResourceModel\Group\Grid\Collection
+                </item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="MagentoVlogs\BannerSlider\Model\ResourceModel\Banner\Grid\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">magentovlogs_banners_slider</argument>
+            <argument name="eventPrefix" xsi:type="string">magentovlogs_banners_slider_grid_collection</argument>
+            <argument name="eventObject" xsi:type="string">banner_grid_collection</argument>
+            <argument name="resourceModel" xsi:type="string">MagentoVlogs\BannerSlider\Model\ResourceModel\Banner</argument>
+        </arguments>
+    </type>
+
+    <type name="MagentoVlogs\BannerSlider\Model\ResourceModel\Group\Grid\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">magentovlogs_banners_slider_group</argument>
+            <argument name="eventPrefix" xsi:type="string">magentovlogs_banners_slider_group_grid_collection</argument>
+            <argument name="eventObject" xsi:type="string">group_grid_collection</argument>
+            <argument name="resourceModel" xsi:type="string">MagentoVlogs\BannerSlider\Model\ResourceModel\Group</argument>
+        </arguments>
+    </type>
+
+    <virtualType name="BannerSliderImageUploader"
+                 type="MagentoVlogs\BannerSlider\Model\Banner\ImageUploader">
+        <arguments>
+            <argument name="baseTmpPath" xsi:type="string">magentovlogs/tmp/banners_slider</argument>
+            <argument name="basePath" xsi:type="string">magentovlogs/banners_slider</argument>
+            <argument name="allowedExtensions" xsi:type="array">
+                <item name="jpg" xsi:type="string">jpg</item>
+                <item name="jpeg" xsi:type="string">jpeg</item>
+                <item name="gif" xsi:type="string">gif</item>
+                <item name="png" xsi:type="string">png</item>
+                <item name="webp" xsi:type="string">webp</item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <type name="MagentoVlogs\BannerSlider\Controller\Adminhtml\Banner\Upload">
+        <arguments>
+            <argument name="imageUploader" xsi:type="object">
+                BannerSliderImageUploader
+            </argument>
+        </arguments>
+    </type>
+
+    <preference for="MagentoVlogs\BannerSlider\Api\BannerRepositoryInterface"
+                type="MagentoVlogs\BannerSlider\Model\BannerRepository"/>
+
+</config>

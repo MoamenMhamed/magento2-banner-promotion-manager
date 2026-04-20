@@ -1,0 +1,79 @@
+{
+    "magentovlogs_banners_slider_group": {
+        "column": {
+            "id": true,
+            "name": true,
+            "code": true,
+            "layout_type": true,
+            "max_banners": true,
+            "auto_rotate": true,
+            "rotation_speed": true,
+            "creation_time": true,
+            "update_time": true
+        },
+        "index": {
+            "MAGENTOVLOGS_BANNERS_SLIDER_GROUP_NAME": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "MAGENTOVLOGS_BANNERS_SLIDER_GROUP_CODE": true
+        }
+    },
+    "magentovlogs_banners_slider": {
+        "column": {
+            "id": true,
+            "name": true,
+            "title": true,
+            "description": true,
+            "image": true,
+            "mobile_image": true,
+            "url": true,
+            "link_text": true,
+            "background_color": true,
+            "text_color": true,
+            "position": true,
+            "display_order": true,
+            "status": true,
+            "store_id": true,
+            "group_id": true,
+            "start_date": true,
+            "end_date": true,
+            "click_count": true,
+            "impression_count": true,
+            "creation_time": true,
+            "update_time": true
+        },
+        "index": {
+            "MAGENTOVLOGS_BANNERS_SLIDER_NAME": true,
+            "MAGENTOVLOGS_BANNERS_SLIDER_STATUS": true,
+            "MAGENTOVLOGS_BANNERS_SLIDER_POSITION": true,
+            "MAGENTOVLOGS_BANNERS_SLIDER_DISPLAY_ORDER": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "MAGENTOVLOGS_BANNERS_SLIDER_STORE_ID_STORE_STORE_ID": true,
+            "FK_2DE92BF1CFB3BCDA951BACA3C40FE2A8": true
+        }
+    },
+    "magentovlogs_banners_slider_analytics": {
+        "column": {
+            "id": true,
+            "banner_id": true,
+            "event_type": true,
+            "customer_id": true,
+            "session_id": true,
+            "user_agent": true,
+            "ip_address": true,
+            "created_at": true
+        },
+        "index": {
+            "MAGENTOVLOGS_BANNERS_SLIDER_ANALYTICS_BANNER_ID": true,
+            "MAGENTOVLOGS_BANNERS_SLIDER_ANALYTICS_EVENT_TYPE": true,
+            "MAGENTOVLOGS_BANNERS_SLIDER_ANALYTICS_CREATED_AT": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "FK_90D77FD8565DEF2FD9460CEDAEED5F65": true
+        }
+    }
+}

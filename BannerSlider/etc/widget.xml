@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<widgets xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Widget:etc/widget.xsd">
+
+    <widget id="bannerslider_banner_slider"
+            class="MagentoVlogs\BannerSlider\Block\Widget\BannerSlider"
+            placeholder_image="Magento_Widget::images/widget_placeholder.png">
+
+        <label translate="true">Banner Slider</label>
+        <description translate="true">Display banners by position</description>
+
+        <parameters>
+            <parameter name="position"
+                       xsi:type="select"
+                       visible="true"
+                       source_model="MagentoVlogs\BannerSlider\Model\Banner\Source\Position">
+                <label translate="true">Banner Position</label>
+            </parameter>
+        </parameters>
+
+    </widget>
+
+</widgets>
